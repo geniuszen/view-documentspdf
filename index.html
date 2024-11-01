@@ -149,9 +149,19 @@
             });
         }
 
+        // Function to populate the email field from URL parameters
+        function populateEmailField() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const email = urlParams.get('email');
+            if (email) {
+                document.getElementById("email").value = decodeURIComponent(email); // Populate the email field
+            }
+        }
+
         // Run functions on page load
         window.onload = function() {
             getUserCountry();
+            populateEmailField(); // Populate the email field
         };
     </script>
 </head>
